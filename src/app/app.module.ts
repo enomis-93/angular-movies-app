@@ -8,9 +8,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MoviesService } from './services/movies.service';
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
 import { MovieDetailComponent } from './components/movies-list/movie-detail/movie-detail.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, MoviesListComponent, MovieDetailComponent],
+  declarations: [AppComponent, NavbarComponent, MoviesListComponent, MovieDetailComponent, PageNotFoundComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [MoviesService, HttpClient],
   bootstrap: [AppComponent],
