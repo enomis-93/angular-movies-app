@@ -16,7 +16,13 @@
     <div class="collapse navbar-collapse" id="navbarsExample07">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home </a>
+          <a
+            class="nav-link"
+            href="#"
+            routerLink="/home"
+            routerLinkActive="active"
+            >Home
+          </a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -25,10 +31,17 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-            >Dropdown</a
+            >Categories</a
           >
           <div class="dropdown-menu" aria-labelledby="dropdown07">
-            <a class="dropdown-item" href="#">Action</a>
+            routerLink="/first-component" routerLinkActive="active"
+            <a
+              class="dropdown-item"
+              href="#"
+              routerLink="/category/1"
+              routerLinkActive="active"
+              >Action</a
+            >
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something else here</a>
           </div>

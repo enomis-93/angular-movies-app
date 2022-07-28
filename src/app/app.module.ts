@@ -5,11 +5,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { MoviesService } from './services/movies.service';
+import { MoviesListComponent } from './components/movies-list/movies-list.component';
+import { MovieDetailComponent } from './components/movies-list/movie-detail/movie-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent, MoviesListComponent, MovieDetailComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [HttpClient],
+  providers: [MoviesService, HttpClient],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
