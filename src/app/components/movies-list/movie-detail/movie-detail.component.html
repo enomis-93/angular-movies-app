@@ -1,1 +1,34 @@
-<p>movie-detail works!</p>
+<div class="container">
+  <div class="movie_card" id="bright">
+    <div class="info_section">
+      <div class="movie_header">
+        <img
+          class="locandina"
+          src="../../../../assets/movie-posters/{{ movie.path_locandina }}"
+        />
+        <h1>{{ movie.title }}</h1>
+        <h4>{{ movie.year }}, {{ movie.director }}</h4>
+        <span class="minutes">{{ movie.duration }} </span>
+        <p class="type">Action, Crime, Fantasy</p>
+      </div>
+      <div class="movie_desc">
+        <p class="text">
+          {{ movie.plot }}
+        </p>
+      </div>
+      <div class="movie_social">
+        <ul>
+          <li><i class="material-icons">share</i></li>
+          <li><i class="material-icons">love</i></li>
+          <li><i class="material-icons">comment</i></li>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="blur_back"
+      [style.backgroundImage]="
+        'url(../../../../assets/movie-posters/' + movie.path_locandina + ')'
+      "
+    ></div>
+  </div>
+</div>
