@@ -34,16 +34,13 @@
             >Categories</a
           >
           <div class="dropdown-menu" aria-labelledby="dropdown07">
-            routerLink="/first-component" routerLinkActive="active"
             <a
               class="dropdown-item"
               href="#"
-              routerLink="/category/1"
-              routerLinkActive="active"
-              >Action</a
+              routerLink="category/{{ category.id }}"
+              *ngFor="let category of categories"
+              >{{ category.name }}</a
             >
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
           </div>
         </li>
       </ul>

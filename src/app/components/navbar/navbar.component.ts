@@ -7,7 +7,7 @@ import { MoviesService } from 'src/app/services/movies.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  categories: [] = [];
+  categories: any[] = [];
 
   constructor(private moviesService: MoviesService) {}
 
@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
   setCategories() {
     this.moviesService.getCategories().subscribe((res: any) => {
       console.log(res);
+      this.categories = res;
     });
   }
 }
