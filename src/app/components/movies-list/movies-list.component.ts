@@ -18,10 +18,10 @@ export class MoviesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getParamID();
-    this.getAllMoviesData();
+    this.showAllMovies();
   }
 
-  getAllMoviesData() {
+  showAllMovies() {
     this.moviesService.getAllMovies().subscribe((res: any) => {
       console.log(res);
       this.movies = res;
