@@ -1,0 +1,11 @@
+{
+  "/api": {
+    "target": "https://cc45-176-62-159-134.eu.ngrok.io/",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "/api": ""
+    }
+  }
+}

@@ -11,7 +11,13 @@ import { MovieDetailComponent } from './components/movies-list/movie-detail/movi
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, MoviesListComponent, MovieDetailComponent, PageNotFoundComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    MoviesListComponent,
+    MovieDetailComponent,
+    PageNotFoundComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [MoviesService, HttpClient],
   bootstrap: [AppComponent],
