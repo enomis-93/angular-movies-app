@@ -13,11 +13,19 @@ export class MoviesListComponent implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
-    private route: ActivatedRoute
+    private activeRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.getParamID();
+    // this.showMovies(this.id);
+  }
+
+  showMovies(id: number) {
+    if (id > 0) {
+      this.showMoviesByCategory(id);
+      return;
+    }
     this.showAllMovies();
   }
 
@@ -28,12 +36,21 @@ export class MoviesListComponent implements OnInit {
     });
   }
 
+  showMoviesByCategory(id: number) {
+    this.moviesService.getMoviesByCategory(id).subscribe((res: any) => {
+      console.log(res);
+      this.movies = res;
+    });
+  }
+
   // leggo l'id dai parametri del'url e lo uso per l'eventuale chiamata alla singola categoria
   getParamID() {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      if (params.get('id')) {
-        this.id = params.get('id');
-      }
+    this.activeRoute.paramMap.subscribe((params: ParamMap) => {
+      this.activeRoute.params.subscribe((routeParams) => {
+        let id = routeParams['id'];
+        this.id = routeParams['id'];
+        this.showMovies(id);
+      });
     });
   }
 }
