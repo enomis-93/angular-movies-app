@@ -1,10 +1,24 @@
 <p>movies-list works!</p>
-
+<p>{{ id }}</p>
 <!-- card example -->
-<div class="card" style="width: 18rem" routerLink="/film/1">
-  <h4 class="text-center">Titolo film</h4>
-  <img class="card-img-top" src="..." alt="Card image cap" />
-  <div class="card-body">
-    <a href="#" class="btn btn-primary">view detail</a>
+<div class="d-flex">
+  <div *ngFor="let movie of movies">
+    <div
+      class="card mx-1 bg-dark text-white"
+      style="width: 10rem"
+      routerLink="/film/1"
+    >
+      <img
+        class="card-img-top"
+        src="../../../assets/movie-posters/{{ movie.path_locandina }}"
+        alt="Card image cap"
+      />
+      <h5 class="text-center">{{ movie.title }}</h5>
+      <div class="card-body">
+        <a href="#" class="btn btn-primary">view detail</a>
+      </div>
+    </div>
   </div>
 </div>
+
+<div>{{ movies | json }}</div>
