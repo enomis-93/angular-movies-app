@@ -1,24 +1,52 @@
 <p>movies-list works!</p>
 <p>{{ id }}</p>
 <!-- card example -->
-<div class="d-flex">
+<div class="d-flex flex-wrap">
   <div *ngFor="let movie of movies">
     <div
-      class="card mx-1 bg-dark text-white"
+      class="content card m-1 bg-dark text-white"
       style="width: 10rem"
       routerLink="/film/{{ movie.id }}"
     >
+      <div id="scroll-container" class="content-overlay"></div>
       <img
         class="card-img-top"
         src="../../../assets/movie-posters/{{ movie.path_locandina }}"
         alt="Card image cap"
+        style="width: 100%; height: 25vw; object-fit: cover"
       />
-      <h5 class="text-center">{{ movie.title }}</h5>
-      <div class="card-body">
-        <a href="#" class="btn btn-primary">view detail</a>
+      <!-- Overlay content -->
+      <div id="scroll-text" class="content-details fadeIn-bottom scroll-parent">
+        <h5 class="h5 scroll-element">{{ movie.title }}</h5>
+        <p class="movie_desc scroll-element">{{ movie.plot }}</p>
       </div>
     </div>
   </div>
 </div>
 
+<!-- --------------------  TEST ---------------------------- -->
+<!-- <div class="d-flex">
+  <div>
+    <div
+      class="content card mx-1 bg-dark text-white"
+      style="width: 10rem"
+      routerLink="/film/1"
+    >
+      <div class="content-overlay"></div>
+      <img
+        class="card-img-top"
+        src="../../../assets/movie-posters/Harrypotterelapietrafilosofale.jpg"
+        alt="Card image cap"
+        style="width: 100%; height: 25vw; object-fit: cover"
+      />
+      <div class="content-details fadeIn-bottom">
+        <h3 class="content-title">This is a title</h3>
+        <p class="content-text">This is a short description</p>
+      </div>
+    </div>
+  </div>
+</div> -->
+
 <div>{{ movies | json }}</div>
+
+<!-- --------------------------- -->
