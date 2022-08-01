@@ -1,0 +1,69 @@
+<p>Admin Panel</p>
+<p>{{ searchString }}</p>
+
+<h2 class="text-white text-center" *ngIf="movies.length == 0">
+  Non esistono film corrispondenti alla ricerca
+</h2>
+<p>{{ id }}</p>
+
+<!-- CARD EXAMPLE -->
+
+<!-- <div class="d-flex flex-wrap">
+  <div *ngFor="let movie of movies">
+    <div
+      class="content card m-1 bg-dark text-white"
+      style="width: 10rem"
+      routerLink="/film/{{ movie.id }}"
+    >
+      <div id="scroll-container" class="content-overlay"></div>
+      <img
+        class="card-img-top"
+        src="../../../assets/movie-posters/{{ movie.path_locandina }}"
+        alt="Card image cap"
+        style="width: 100%; height: 25vw; object-fit: cover"
+      />
+
+      <div id="scroll-text" class="content-details fadeIn-bottom scroll-parent">
+        <h5 class="h5 scroll-element">{{ movie.title }}</h5>
+        <p class="movie_desc scroll-element">{{ movie.plot }}</p>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">Poster</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Director</th>
+      <th scope="col">Category</th>
+      <th scope="col">Duration</th>
+      <th scope="col">Year</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movie of movies">
+      <td>{{ movie.id }}</td>
+      <td>
+        <img
+          style="width: 5rem"
+          src="../../../assets/movie-posters/{{ movie.path_locandina }}"
+          alt="movie_poster_{{ movie.id }}"
+        />
+      </td>
+      <td>{{ movie.title }}</td>
+      <td>{{ movie.plot }}</td>
+      <td>{{ movie.director }}</td>
+      <td>x</td>
+      <td>{{ movie.duration }}</td>
+      <td>{{ movie.year }}</td>
+      <td><button class="btn btn-success">UPDATE</button></td>
+      <td><button class="btn btn-danger">DELETE</button></td>
+    </tr>
+  </tbody>
+</table>
