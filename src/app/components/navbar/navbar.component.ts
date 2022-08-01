@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movies.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,12 +9,20 @@ import { MoviesService } from 'src/app/services/movies.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('movieInput') movieInput!: ElementRef;
+  searchString: string = 'test';
+
   categories: any[] = [];
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(
+    private moviesService: MoviesService,
+    private router: Router,
+    private commonService: CommonService
+  ) {}
 
   ngOnInit(): void {
     this.setCategories();
+    this.commonService.data$.subscribe((res) => (this.searchString = res)); //read the invoked data or default data
   }
 
   setCategories() {
@@ -20,5 +30,11 @@ export class NavbarComponent implements OnInit {
       console.log(res);
       this.categories = res;
     });
+  }
+
+  onMovieSubmit() {
+    this.searchString = this.movieInput.nativeElement.value;
+    this.commonService.changeData(this.searchString);
+    this.movieInput.nativeElement.value = '';
   }
 }

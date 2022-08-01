@@ -32,4 +32,8 @@ export class MoviesService {
   getCategories() {
     return this.http.get('/api/categoria/all');
   }
+
+  getMovieByString(string: string) {
+    return this.http.get(`/api/film/search?title=${string}`);
+  }
 }

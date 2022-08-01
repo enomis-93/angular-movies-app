@@ -1,4 +1,9 @@
 <p>movies-list works!</p>
+<p>{{ searchString }}</p>
+
+<h2 class="text-white text-center" *ngIf="movies.length == 0">
+  Non esistono film corrispondenti alla ricerca
+</h2>
 <p>{{ id }}</p>
 <!-- card example -->
 <div class="d-flex flex-wrap">

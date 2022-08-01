@@ -102,33 +102,33 @@
 /* for Firefox */
 @-moz-keyframes my-animation {
   from {
-    -moz-transform: translateY(-100%);
+    -moz-transform: translateY(100%);
   }
   to {
-    -moz-transform: translateY(100%);
+    -moz-transform: translateY(-100%);
   }
 }
 
 /* for Chrome */
 @-webkit-keyframes my-animation {
   from {
-    -webkit-transform: translateY(-100%);
+    -webkit-transform: translateY(100%);
   }
   to {
-    -webkit-transform: translateY(100%);
+    -webkit-transform: translateY(-100%);
   }
 }
 
 @keyframes my-animation {
   from {
-    -moz-transform: translateY(-100%);
-    -webkit-transform: translateY(-100%);
-    transform: translateY(-100%);
-  }
-  to {
     -moz-transform: translateY(100%);
     -webkit-transform: translateY(100%);
     transform: translateY(100%);
+  }
+  to {
+    -moz-transform: translateY(-100%);
+    -webkit-transform: translateY(-100%);
+    transform: translateY(-100%);
   }
 }
 
