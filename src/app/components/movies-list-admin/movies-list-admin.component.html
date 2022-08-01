@@ -27,9 +27,16 @@
     </div>
   </div>
 </div> -->
+<div
+  class="alert text-center fw-bold"
+  [ngClass]="isErrorStatus ? 'alert-danger' : 'alert-success'"
+  *ngIf="showStatusMessage"
+>
+  {{ statusMessage }}
+</div>
 
 <div class="text-end py-2">
-  <button class="btn btn-primary">+ ADD MOVIE</button>
+  <button class="btn btn-primary" routerLink="add">+ ADD MOVIE</button>
 </div>
 <table class="table">
   <thead>

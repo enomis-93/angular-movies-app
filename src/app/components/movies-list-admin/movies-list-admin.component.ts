@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { MoviesService } from '../../services/movies.service';
 import { CommonService } from '../../services/common.service';
 import { Movie } from '../../classes/movie';
@@ -14,9 +14,14 @@ export class MoviesListAdminComponent implements OnInit {
   movies: Movie[] = [];
   searchString: string = '';
 
+  isErrorStatus: boolean = false;
+  showStatusMessage: boolean = false;
+  statusMessage: string = '';
+
   constructor(
     private moviesService: MoviesService,
     private activeRoute: ActivatedRoute,
+    private router: Router,
     private commonService: CommonService
   ) {}
 
@@ -81,7 +86,29 @@ export class MoviesListAdminComponent implements OnInit {
     // console.log(id);
     let confirmDelete = confirm(`Do you really want to delete "${name}" ?`);
     if (confirmDelete) {
-      this.moviesService.deleteMovie(id).subscribe();
+      this.moviesService.deleteMovie(id).subscribe({
+        next: () => {
+          this.router.navigateByUrl('movies_list');
+          this.statusMessage = `"${name}" deleted successfully !`;
+
+          this.showStatusMessage = true;
+          setTimeout(() => {
+            this.showStatusMessage = false;
+          }, 2000);
+        },
+        error: (error) => {
+          this.router.navigateByUrl('movies_list');
+          this.statusMessage = error.message;
+
+          this.isErrorStatus = true;
+          this.showStatusMessage = true;
+
+          setTimeout(() => {
+            this.showStatusMessage = false;
+            this.isErrorStatus = false;
+          }, 2000);
+        },
+      });
     }
   }
 }

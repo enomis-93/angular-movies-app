@@ -4,6 +4,7 @@ import { MovieDetailComponent } from './components/movies-list/movie-detail/movi
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MoviesListAdminComponent } from './components/movies-list-admin/movies-list-admin.component';
+import { AdminFormComponent } from './components/admin-form/admin-form.component';
 
 const routes: Routes = [
   { path: '', component: MoviesListComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
 
   // Admin Routes
   { path: 'movies_list', component: MoviesListAdminComponent },
+  { path: 'movies_list/add', component: AdminFormComponent },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
 ];
 
