@@ -1,1 +1,84 @@
-<p>admin-form works!</p>
+<div class="container">
+  <form class="py-5 text-white" (submit)="addMovie()">
+    <div class="form-group">
+      <label for="title">Title: </label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        [(ngModel)]="movie.title"
+        placeholder="Movie title"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="director">Director: </label>
+      <input
+        type="text"
+        class="form-control"
+        id="director"
+        name="director"
+        [(ngModel)]="movie.director"
+        placeholder="Movie director"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="year">Year: </label>
+      <input
+        type="number"
+        class="form-control"
+        max="{{ currentYear }}"
+        id="year"
+        name="year"
+        [(ngModel)]="movie.year"
+        placeholder="1993"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="duration">Duration (min): </label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="movie.duration"
+        id="duration"
+        name="duration"
+        placeholder="0"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="category">Category: </label>
+      <select class="form-control" id="category">
+        <option *ngFor="let category of categories">{{ category.name }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="plot">Plot</label>
+      <textarea
+        class="form-control"
+        [(ngModel)]="movie.plot"
+        id="plot"
+        name="plot"
+        rows="4"
+        required
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="poster">Poster: </label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="movie.path_locandina"
+        id="poster"
+        name="poster"
+        required
+      />
+    </div>
+    <div class="text-end">
+      <button class="btn btn-primary my-2">Send</button>
+    </div>
+  </form>
+</div>

@@ -9,7 +9,7 @@ import { MoviesService } from './services/movies.service';
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
 import { MovieDetailComponent } from './components/movies-list/movie-detail/movie-detail.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MoviesListAdminComponent } from './components/movies-list-admin/movies-list-admin.component';
 import { AdminFormComponent } from './components/admin-form/admin-form.component';
 
@@ -23,7 +23,13 @@ import { AdminFormComponent } from './components/admin-form/admin-form.component
     MoviesListAdminComponent,
     AdminFormComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [MoviesService, HttpClient],
   bootstrap: [AppComponent],
 })

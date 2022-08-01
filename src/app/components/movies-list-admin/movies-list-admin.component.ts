@@ -88,25 +88,28 @@ export class MoviesListAdminComponent implements OnInit {
     if (confirmDelete) {
       this.moviesService.deleteMovie(id).subscribe({
         next: () => {
-          this.router.navigateByUrl('movies_list');
+          this.getParamID();
           this.statusMessage = `"${name}" deleted successfully !`;
 
           this.showStatusMessage = true;
+
+          window.scrollTo(0, 0);
           setTimeout(() => {
             this.showStatusMessage = false;
-          }, 2000);
+          }, 5000);
         },
         error: (error) => {
-          this.router.navigateByUrl('movies_list');
+          this.getParamID();
           this.statusMessage = error.message;
 
           this.isErrorStatus = true;
           this.showStatusMessage = true;
 
+          window.scrollTo(0, 0);
           setTimeout(() => {
             this.showStatusMessage = false;
             this.isErrorStatus = false;
-          }, 2000);
+          }, 5000);
         },
       });
     }

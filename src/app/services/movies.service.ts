@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-const headerDict = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  'Access-Control-Allow-Headers': '*',
-};
-
-const requestOptions = {
-  headers: new Headers(headerDict),
-};
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Movie } from '../classes/movie';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
+
   constructor(private http: HttpClient) {}
 
   getAllMovies() {
@@ -40,4 +38,30 @@ export class MoviesService {
   deleteMovie(id: number) {
     return this.http.delete(`api/film/${id}`);
   }
+
+  addMovie(movie: Movie): Observable<any> {
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(movie);
+    console.log(body);
+    return this.http.post('api/film/new', body, { headers: headers });
+  }
+
+  // createMovie(movie: Movie): Observable<Movie> {
+  //   return this.http
+  //     .post<Movie>('api/new', JSON.stringify(movie), this.httpOptions)
+  //     .pipe(catchError(this.errorHandler));
+  // }
+
+  // errorHandler(error: any) {
+  //   let errorMessage = '';
+  //   if (error.error instanceof ErrorEvent) {
+  //     // Get client-side error
+  //     errorMessage = error.error.message;
+  //   } else {
+  //     // Get server-side error
+  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  //   }
+  //   console.log(errorMessage);
+  //   return throwError(() => errorMessage);
+  // }
 }
