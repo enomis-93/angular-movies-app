@@ -1,15 +1,12 @@
 <p>Admin Panel</p>
 <p>{{ searchString }}</p>
 
-<h2 class="text-white text-center" *ngIf="movies.length == 0">
-  Non esistono film corrispondenti alla ricerca
-</h2>
 <p>{{ id }}</p>
 
 <!-- CARD EXAMPLE -->
 
 <!-- <div class="d-flex flex-wrap">
-  <div *ngFor="let movie of movies">
+    <div *ngFor="let movie of movies">
     <div
       class="content card m-1 bg-dark text-white"
       style="width: 10rem"
@@ -26,11 +23,14 @@
       <div id="scroll-text" class="content-details fadeIn-bottom scroll-parent">
         <h5 class="h5 scroll-element">{{ movie.title }}</h5>
         <p class="movie_desc scroll-element">{{ movie.plot }}</p>
-      </div>
+    </div>
     </div>
   </div>
 </div> -->
 
+<div class="text-end py-2">
+  <button class="btn btn-primary">+ ADD MOVIE</button>
+</div>
 <table class="table">
   <thead>
     <tr>
@@ -42,11 +42,13 @@
       <th scope="col">Category</th>
       <th scope="col">Duration</th>
       <th scope="col">Year</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
+      <th scope="col" colspan="2" class="text-center">Options</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="text-white">
+    <tr class="text-center" *ngIf="movies.length == 0 && searchString">
+      Non esistono film corrispondenti alla ricerca
+    </tr>
     <tr *ngFor="let movie of movies">
       <td>{{ movie.id }}</td>
       <td>
@@ -59,11 +61,20 @@
       <td>{{ movie.title }}</td>
       <td>{{ movie.plot }}</td>
       <td>{{ movie.director }}</td>
-      <td>x</td>
+      <td>
+        <span>categoria</span>
+      </td>
       <td>{{ movie.duration }}</td>
       <td>{{ movie.year }}</td>
-      <td><button class="btn btn-success">UPDATE</button></td>
-      <td><button class="btn btn-danger">DELETE</button></td>
+      <td><button class="btn btn-outline-success">UPDATE</button></td>
+      <td>
+        <button
+          class="btn btn-outline-danger"
+          (click)="deleteMovie(movie.id, movie.title)"
+        >
+          DELETE
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

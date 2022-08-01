@@ -75,4 +75,13 @@ export class MoviesListAdminComponent implements OnInit {
       });
     });
   }
+
+  // Delete movie
+  deleteMovie(id: number, name: string) {
+    // console.log(id);
+    let confirmDelete = confirm(`Do you really want to delete "${name}" ?`);
+    if (confirmDelete) {
+      this.moviesService.deleteMovie(id).subscribe();
+    }
+  }
 }

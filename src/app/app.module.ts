@@ -11,6 +11,7 @@ import { MovieDetailComponent } from './components/movies-list/movie-detail/movi
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { FormsModule } from '@angular/forms';
 import { MoviesListAdminComponent } from './components/movies-list-admin/movies-list-admin.component';
+import { AdminFormComponent } from './components/admin-form/admin-form.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { MoviesListAdminComponent } from './components/movies-list-admin/movies-
     MovieDetailComponent,
     PageNotFoundComponent,
     MoviesListAdminComponent,
+    AdminFormComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [MoviesService, HttpClient],

@@ -36,4 +36,8 @@ export class MoviesService {
   getMovieByString(string: string) {
     return this.http.get(`/api/film/search?title=${string}`);
   }
+
+  deleteMovie(id: number) {
+    return this.http.delete(`api/film/${id}`);
+  }
 }
