@@ -1,5 +1,9 @@
 <div class="container">
-  <form class="py-5 text-white" (submit)="addMovie()">
+  <form
+    class="py-5 text-white"
+    (submit)="addMovie()"
+    enctype="multipart/form-data"
+  >
     <div class="form-group">
       <label for="title">Title: </label>
       <input
@@ -69,14 +73,24 @@
     <div class="form-group">
       <label for="poster">Poster: </label>
       <input
-        type="text"
+        type="file"
         class="form-control"
         [(ngModel)]="movie.path_locandina"
         id="poster"
         name="poster"
+        accept="image/png, image/jpeg"
+        value=""
         required
+        (change)="showPreviewImage($event)"
       />
     </div>
+    <p>Poster Image:</p>
+    <img
+      [src]="localUrl"
+      style="width: 10rem"
+      *ngIf="localUrl"
+      class="imgPlaceholder my-2"
+    />
     <div class="text-end">
       <button class="btn btn-primary my-2">Send</button>
     </div>

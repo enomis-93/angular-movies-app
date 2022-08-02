@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class AdminFormComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
   categories: any[] = [];
+  localUrl: any[] = [];
 
   movie = new Movie();
   constructor(private moviesService: MoviesService, private router: Router) {}
@@ -30,5 +31,15 @@ export class AdminFormComponent implements OnInit {
     this.moviesService.getCategories().subscribe((res: any) => {
       this.categories = res;
     });
+  }
+
+  showPreviewImage(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.localUrl = event.target.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 }
