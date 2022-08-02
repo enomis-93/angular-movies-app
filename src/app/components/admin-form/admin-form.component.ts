@@ -14,6 +14,7 @@ export class AdminFormComponent implements OnInit {
   localUrl: any[] = [];
   id!: number;
   movie = new Movie();
+  categoryID!: number;
 
   constructor(
     private moviesService: MoviesService,
@@ -29,6 +30,11 @@ export class AdminFormComponent implements OnInit {
   sendMovieData() {
     // Update Movie Case
     if (this.id) {
+      this.movie.category.forEach((cat, index) => {
+        this.movie.category[index].id = this.getCategoryID(
+          this.movie.category[index].name
+        );
+      });
       this.moviesService.editMovie(this.movie, this.id).subscribe((data) => {
         console.log(data);
         this.router.navigateByUrl('movies_list');
@@ -37,10 +43,17 @@ export class AdminFormComponent implements OnInit {
     }
 
     // Create Movie Case
+    this.movie.category[0].id = this.getCategoryID(this.movie.category[0].name);
     this.moviesService.addMovie(this.movie).subscribe((data) => {
       console.log(data);
       this.router.navigateByUrl('movies_list');
     });
+  }
+
+  getCategoryID(category: string) {
+    let cat = this.categories.find((cat) => cat.name === category);
+    this.categoryID = cat.id;
+    return cat.id || 'null';
   }
 
   // Invoked only if a parameter contains an ID
