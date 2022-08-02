@@ -15,6 +15,7 @@ const routes: Routes = [
   // Admin Routes
   { path: 'movies_list', component: MoviesListAdminComponent },
   { path: 'movies_list/add', component: AdminFormComponent },
+  { path: 'movies_list/edit/:id', component: AdminFormComponent },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
 ];
 

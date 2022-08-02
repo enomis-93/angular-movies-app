@@ -46,6 +46,13 @@ export class MoviesService {
     return this.http.post('api/film/new', body, { headers: headers });
   }
 
+  editMovie(movie: Movie, id: number): Observable<any> {
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(movie);
+    console.log(body);
+    return this.http.put(`api/film/edit/${id}`, body, { headers: headers });
+  }
+
   // createMovie(movie: Movie): Observable<Movie> {
   //   return this.http
   //     .post<Movie>('api/new', JSON.stringify(movie), this.httpOptions)

@@ -1,7 +1,7 @@
 <div class="container">
   <form
     class="py-5 text-white"
-    (submit)="addMovie()"
+    (submit)="sendMovieData()"
     enctype="multipart/form-data"
   >
     <div class="form-group">
@@ -13,8 +13,10 @@
         name="title"
         [(ngModel)]="movie.title"
         placeholder="Movie title"
+        #title="ngModel"
         required
       />
+      <div *ngIf="title.errors?.['required']">Name is required.</div>
     </div>
     <div class="form-group">
       <label for="director">Director: </label>
@@ -92,7 +94,8 @@
       class="imgPlaceholder my-2"
     />
     <div class="text-end">
-      <button class="btn btn-primary my-2">Send</button>
+      <button class="btn btn-primary my-2">{{ id ? "EDIT" : "CREATE" }}</button>
     </div>
   </form>
 </div>
+<div>{{ movie | json }}</div>

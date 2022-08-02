@@ -73,7 +73,14 @@
       </td>
       <td>{{ movie.duration }}</td>
       <td>{{ movie.year }}</td>
-      <td><button class="btn btn-outline-success">UPDATE</button></td>
+      <td>
+        <button
+          class="btn btn-outline-success"
+          routerLink="edit/{{ movie.id }}"
+        >
+          EDIT
+        </button>
+      </td>
       <td>
         <button
           class="btn btn-outline-danger"
