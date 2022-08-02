@@ -1,6 +1,7 @@
 <p>movies-list works!</p>
 <p>{{ searchString }}</p>
 
+<app-spinner *ngIf="movies.length <= 0"></app-spinner>
 <h2 class="text-white text-center" *ngIf="movies.length == 0 && searchString">
   Non esistono film corrispondenti alla ricerca
 </h2>

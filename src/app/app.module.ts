@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MoviesListAdminComponent } from './components/movies-list-admin/movies-list-admin.component';
 import { AdminFormComponent } from './components/admin-form/admin-form.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AdminFormComponent } from './components/admin-form/admin-form.component
     PageNotFoundComponent,
     MoviesListAdminComponent,
     AdminFormComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
