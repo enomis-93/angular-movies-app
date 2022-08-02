@@ -69,9 +69,11 @@
       <td>{{ movie.plot }}</td>
       <td>{{ movie.director }}</td>
       <td>
-        <span>categoria</span>
+        <!-- <span *ngFor="let category of movie.category; let i = index"
+          >{{ category.name }} {{ i < movie.category.length - 1 ? "," : "" }}
+        </span> -->
       </td>
-      <td>{{ movie.duration }}</td>
+      <td>{{ movie.duration }} min</td>
       <td>{{ movie.year }}</td>
       <td>
         <button

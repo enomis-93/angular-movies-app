@@ -13,8 +13,8 @@ export class AdminFormComponent implements OnInit {
   categories: any[] = [];
   localUrl: any[] = [];
   id!: number;
-
   movie = new Movie();
+
   constructor(
     private moviesService: MoviesService,
     private router: Router,

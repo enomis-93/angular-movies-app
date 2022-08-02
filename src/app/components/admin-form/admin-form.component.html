@@ -57,9 +57,35 @@
     </div>
     <div class="form-group">
       <label for="category">Category: </label>
-      <select class="form-control" id="category">
-        <option *ngFor="let category of categories">{{ category.name }}</option>
-      </select>
+      <!-- Dinamically category -->
+      <!------- Case EDIT ---------->
+      <div *ngIf="this.id">
+        <select
+          *ngFor="let movieCategory of movie.category; let i = index"
+          class="form-control my-1"
+          [(ngModel)]="movie.category[i].name"
+          id="category"
+          name="category"
+        >
+          <option *ngFor="let category of categories">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <!------- Case CREATE ---------->
+      <div *ngIf="!this.id">
+        <select
+          class="form-control my-1"
+          [(ngModel)]="movie.category[0].name"
+          id="category"
+          name="category"
+        >
+          <option *ngFor="let category of categories">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <!-- ------------------------ -->
     </div>
     <div class="form-group">
       <label for="plot">Plot</label>

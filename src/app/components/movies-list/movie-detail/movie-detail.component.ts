@@ -15,6 +15,7 @@ export class MovieDetailComponent implements OnInit {
     title: '',
     director: ' ',
     duration: 0,
+    category: [{ name: '', id: 0 }],
     id: 0,
     path_locandina: '',
     plot: '',

@@ -8,8 +8,12 @@
         />
         <h1>{{ movie.title }}</h1>
         <h4>{{ movie.year }}, {{ movie.director }}</h4>
-        <span class="minutes">{{ movie.duration }} </span>
-        <p class="type">Action, Crime, Fantasy</p>
+        <span class="minutes">{{ movie.duration }} min</span>
+        <p class="type">
+          <span *ngFor="let category of movie.category; let i = index"
+            >{{ category.name }} {{ i < movie.category.length - 1 ? "," : "" }}
+          </span>
+        </p>
       </div>
       <div class="movie_desc">
         <p class="text">
