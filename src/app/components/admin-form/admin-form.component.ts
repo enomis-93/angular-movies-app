@@ -16,6 +16,9 @@ export class AdminFormComponent implements OnInit {
   movie = new Movie();
   categoryID!: number;
 
+  file1!: any;
+  file2!: any;
+
   constructor(
     private moviesService: MoviesService,
     private router: Router,
@@ -30,11 +33,6 @@ export class AdminFormComponent implements OnInit {
   sendMovieData() {
     // Update Movie Case
     if (this.id) {
-      this.movie.category.forEach((cat, index) => {
-        this.movie.category[index].id = this.getCategoryID(
-          this.movie.category[index].name
-        );
-      });
       this.moviesService.editMovie(this.movie, this.id).subscribe((data) => {
         console.log(data);
         this.router.navigateByUrl('movies_list');
@@ -42,18 +40,17 @@ export class AdminFormComponent implements OnInit {
       return;
     }
 
-    // Create Movie Case
-    this.movie.category[0].id = this.getCategoryID(this.movie.category[0].name);
     this.moviesService.addMovie(this.movie).subscribe((data) => {
       console.log(data);
       this.router.navigateByUrl('movies_list');
     });
   }
 
-  getCategoryID(category: string) {
+  getCategoryID(category: string, index: number = 0) {
     let cat = this.categories.find((cat) => cat.name === category);
     this.categoryID = cat.id;
-    return cat.id || 'null';
+    this.movie.category[index].id = this.categoryID;
+    // return cat.id || 'null';
   }
 
   // Invoked only if a parameter contains an ID
@@ -65,6 +62,7 @@ export class AdminFormComponent implements OnInit {
           this.id = routeParams['id'];
           this.setMovieDetails(id);
         }
+        return;
       });
     });
   }
@@ -90,5 +88,13 @@ export class AdminFormComponent implements OnInit {
       };
       reader.readAsDataURL(event.target.files[0]);
     }
+  }
+
+  uploadFile(event: any) {
+    this.file1 = event.target.value;
+    this.file2 = event.target.files[0];
+    this.movie.path_locandina = this.file2.name;
+    console.log(this.file1); // in this case we only get fakepath same as we get in ngModel.
+    console.table(this.file2.name); // in this case we get object with data like, name, lastModified, lastModifiedDate, size and type.
   }
 }

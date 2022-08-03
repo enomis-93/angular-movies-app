@@ -1,7 +1,7 @@
-<p>Admin Panel</p>
+<!-- <p>Admin Panel</p>
 <p>{{ searchString }}</p>
 
-<p>{{ id }}</p>
+<p>{{ id }}</p> -->
 
 <!-- CARD EXAMPLE -->
 
@@ -52,6 +52,7 @@
       <th scope="col" colspan="2" class="text-center">Options</th>
     </tr>
   </thead>
+
   <tbody class="text-white">
     <tr class="text-center" *ngIf="movies.length == 0 && searchString">
       Non esistono film corrispondenti alla ricerca
@@ -94,3 +95,4 @@
     </tr>
   </tbody>
 </table>
+<app-spinner *ngIf="movies.length <= 0"></app-spinner>

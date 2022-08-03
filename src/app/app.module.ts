@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MoviesListAdminComponent } from './components/movies-list-admin/movies-list-admin.component';
 import { AdminFormComponent } from './components/admin-form/admin-form.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CommonService } from './services/common.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [MoviesService, HttpClient],
+  providers: [MoviesService, HttpClient, CommonService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

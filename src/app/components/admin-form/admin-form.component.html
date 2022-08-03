@@ -1,5 +1,5 @@
 <div class="container">
-  <div>{{ categoryID }}</div>
+  <!-- <div>{{ categoryID }}</div> -->
   <form
     class="py-5 text-white"
     (submit)="sendMovieData()"
@@ -67,10 +67,11 @@
           [(ngModel)]="movie.category[i].name"
           id="category"
           name="category"
+          (change)="getCategoryID(movie.category[i].name, i)"
         >
           <option
             *ngFor="let category of categories"
-            [selected]="movieCategory.id === category.id"
+            [selected]="movieCategory.id == category.id"
           >
             {{ category.name }}
           </option>
@@ -83,8 +84,9 @@
           [(ngModel)]="movie.category[0].name"
           id="category"
           name="category"
+          (change)="getCategoryID(movie.category[0].name)"
         >
-          <option *ngFor="let category of categories">
+          <option *ngFor="let category of categories" [selected]="category.id">
             {{ category.name }}
           </option>
         </select>
@@ -108,21 +110,27 @@
         type="file"
         class="form-control"
         [(ngModel)]="movie.path_locandina"
+        observeFiles
         id="poster"
         name="poster"
         accept="image/png, image/jpeg"
         value=""
         required
-        (change)="showPreviewImage($event)"
+        (change)="showPreviewImage($event); uploadFile($event)"
       />
     </div>
     <p>Poster Image:</p>
     <img
-      [src]="localUrl"
+      *ngIf="movie.path_locandina; else elseBlock"
       style="width: 10rem"
-      *ngIf="localUrl"
-      class="imgPlaceholder my-2"
+      src="../../../assets/movie-posters/{{ movie.path_locandina }}"
+      alt=""
     />
+    <ng-template #elseBlock
+      ><div class="p-5 border" style="width: 10rem">
+        No image uploaded yet
+      </div></ng-template
+    >
     <div class="text-end">
       <button class="btn btn-primary my-2">{{ id ? "EDIT" : "CREATE" }}</button>
     </div>

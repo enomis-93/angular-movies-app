@@ -7,7 +7,7 @@ const PROXY_CONFIG = [
       "/categoria/all",
       "/film/:id",
     ],
-    target: "https://cc45-176-62-159-134.eu.ngrok.io",
+    target: "http://5b5d-87-6-192-118.ngrok.io",
     secure: false,
   },
 ];

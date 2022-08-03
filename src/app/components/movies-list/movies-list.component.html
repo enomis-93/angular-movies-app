@@ -1,11 +1,11 @@
-<p>movies-list works!</p>
-<p>{{ searchString }}</p>
+<!-- <p>movies-list works!</p>
+<p>{{ searchString }}</p> -->
 
 <app-spinner *ngIf="movies.length <= 0"></app-spinner>
 <h2 class="text-white text-center" *ngIf="movies.length == 0 && searchString">
   Non esistono film corrispondenti alla ricerca
 </h2>
-<p>{{ id }}</p>
+<!-- <p>{{ id }}</p> -->
 <!-- card example -->
 <div class="d-flex flex-wrap">
   <div *ngFor="let movie of movies">
@@ -53,6 +53,6 @@
   </div>
 </div> -->
 
-<div>{{ movies | json }}</div>
+<!-- <div>{{ movies | json }}</div> -->
 
 <!-- --------------------------- -->
