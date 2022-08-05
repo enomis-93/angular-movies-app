@@ -87,6 +87,11 @@ export class AdminFormComponent implements OnInit {
     this.sendMovieData();
   }
 
+  onReset() {
+    this.submitted = false;
+    this.form.reset();
+  }
+
   sendMovieData() {
     // Update Movie Case
     if (this.id) {
