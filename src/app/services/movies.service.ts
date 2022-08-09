@@ -15,27 +15,27 @@ export class MoviesService {
 
   constructor(private http: HttpClient) {}
 
-  getAllMovies() {
+  getAllMovies(): Observable<any> {
     return this.http.get('/api/film/all');
   }
 
-  getMovieById(id: number) {
+  getMovieById(id: number): Observable<any> {
     return this.http.get(`/api/film/${id}`);
   }
 
-  getMoviesByCategory(categoryId: number) {
+  getMoviesByCategory(categoryId: number): Observable<any> {
     return this.http.get(`/api/categoria/${categoryId}`);
   }
 
-  getCategories() {
+  getCategories(): Observable<any> {
     return this.http.get('/api/categoria/all');
   }
 
-  getMovieByString(string: string) {
+  getMovieByString(string: string): Observable<any> {
     return this.http.get(`/api/film/search?title=${string}`);
   }
 
-  deleteMovie(id: number) {
+  deleteMovie(id: number): Observable<any> {
     return this.http.delete(`api/film/${id}`);
   }
 

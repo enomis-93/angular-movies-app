@@ -17,7 +17,7 @@
       <div id="scroll-container" class="content-overlay"></div>
       <img
         class="card-img-top"
-        src="../../../assets/movie-posters/{{ movie.path_locandina }}"
+        src="http://localhost:4200/api/get/image/{{ movie.images[0]?.name }}"
         alt="Card image cap"
         style="width: 100%; height: 25vw; object-fit: cover"
       />
@@ -53,6 +53,6 @@
   </div>
 </div> -->
 
-<!-- <div>{{ movies | json }}</div> -->
+<div>{{ movies | json }}</div>
 
 <!-- --------------------------- -->

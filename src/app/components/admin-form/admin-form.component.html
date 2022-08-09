@@ -1,5 +1,8 @@
 <div class="container">
   <!-- <div>{{ categoryID }}</div> -->
+  <h3 class="text-center text-white p-3">
+    {{ id ? 'Edit "' + this.movie.title + '"' : "Insert new movie" }}
+  </h3>
   <form
     [formGroup]="form"
     novalidate
@@ -8,185 +11,257 @@
     enctype="multipart/form-data"
   >
     <!------------- Title -------------->
-    <div class="form-group">
-      <label>Title:</label>
-      <input
-        class="form-control"
-        formControlName="title"
-        type="text"
-        id="title"
-        [(ngModel)]="movie.title"
-        [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"
-        placeholder="Movie title"
-      />
-    </div>
-    <div class="alert alert-danger p-2" *ngIf="f['title'].errors && submitted">
-      <div class="py-0" *ngIf="f['title'].errors?.['required']">
-        Title is required.
+    <div class="my-3">
+      <div class="form-group">
+        <label>Title:</label>
+        <input
+          class="form-control"
+          formControlName="title"
+          type="text"
+          id="title"
+          [(ngModel)]="movie.title"
+          [ngClass]="{ 'is-invalid': submitted && f['title'].errors }"
+          placeholder="Movie title"
+        />
+      </div>
+      <div
+        class="alert alert-danger p-2"
+        *ngIf="f['title'].errors && submitted"
+      >
+        <div class="py-0" *ngIf="f['title'].errors?.['required']">
+          Title is required.
+        </div>
       </div>
     </div>
 
     <!------------- Director -------------->
-    <div class="form-group">
-      <label>Director:</label>
-      <input
-        class="form-control"
-        formControlName="director"
-        type="text"
-        [(ngModel)]="movie.director"
-        [ngClass]="{ 'is-invalid': submitted && f['director'].errors }"
-      />
-    </div>
-    <div
-      class="alert alert-danger p-2"
-      *ngIf="f['director'].errors && submitted"
-    >
-      <div class="py-0" *ngIf="f['director'].errors?.['required'] && submitted">
-        Director is required.
+    <div class="my-3">
+      <div class="form-group">
+        <label>Director:</label>
+        <input
+          class="form-control"
+          formControlName="director"
+          type="text"
+          [(ngModel)]="movie.director"
+          [ngClass]="{ 'is-invalid': submitted && f['director'].errors }"
+        />
+      </div>
+      <div
+        class="alert alert-danger p-2"
+        *ngIf="f['director'].errors && submitted"
+      >
+        <div
+          class="py-0"
+          *ngIf="f['director'].errors?.['required'] && submitted"
+        >
+          Director is required.
+        </div>
       </div>
     </div>
 
     <!------------- Year -------------->
 
-    <div class="form-group">
-      <label>Year: </label>
-      <input
-        type="number"
-        formControlName="year"
-        class="form-control"
-        [(ngModel)]="movie.year"
-        [ngClass]="{ 'is-invalid': submitted && f['year'].errors }"
-        placeholder="1400"
-      />
-      <div *ngIf="submitted && f['year'].errors" class="alert alert-danger p-2">
-        <div *ngIf="f['year'].errors['required']">Year is required</div>
-        <div *ngIf="f['year'].errors['min']">Year is too low</div>
-        <div *ngIf="f['year'].errors['max']">Year is too high</div>
+    <div class="my-3">
+      <div class="form-group">
+        <label>Year: </label>
+        <input
+          type="number"
+          formControlName="year"
+          class="form-control"
+          [(ngModel)]="movie.year"
+          [ngClass]="{ 'is-invalid': submitted && f['year'].errors }"
+          placeholder="1400"
+        />
+        <div
+          *ngIf="submitted && f['year'].errors"
+          class="alert alert-danger p-2"
+        >
+          <div *ngIf="f['year'].errors['required']">Year is required</div>
+          <div *ngIf="f['year'].errors['min']">Year is too low</div>
+          <div *ngIf="f['year'].errors['max']">Year is too high</div>
+        </div>
       </div>
     </div>
 
     <!------------- Duration -------------->
 
-    <div class="form-group">
-      <label for="duration">Duration (min): </label>
-      <input
-        type="number"
-        formControlName="duration"
-        class="form-control"
-        [(ngModel)]="movie.duration"
-        [ngClass]="{ 'is-invalid': submitted && f['duration'].errors }"
-        placeholder="10"
-      />
-    </div>
-    <div
-      class="alert alert-danger p-2"
-      *ngIf="f['duration'].errors && submitted"
-    >
-      <div class="py-0" *ngIf="f['duration'].errors?.['required'] && submitted">
-        Duration is required.
+    <div class="my-3">
+      <div class="form-group">
+        <label for="duration">Duration (min): </label>
+        <input
+          type="number"
+          formControlName="duration"
+          class="form-control"
+          [(ngModel)]="movie.duration"
+          [ngClass]="{ 'is-invalid': submitted && f['duration'].errors }"
+          placeholder="10"
+        />
       </div>
-      <div *ngIf="f['duration'].errors['min']">Duration is too short</div>
+      <div
+        class="alert alert-danger p-2"
+        *ngIf="f['duration'].errors && submitted"
+      >
+        <div
+          class="py-0"
+          *ngIf="f['duration'].errors?.['required'] && submitted"
+        >
+          Duration is required.
+        </div>
+        <div *ngIf="f['duration'].errors['min']">Duration is too short</div>
+      </div>
     </div>
 
     <!-- Dinamically category -->
-    <div class="form-group">
-      <label for="category">Category: </label>
-      <!------- Case EDIT ---------->
+    <div class="my-3">
+      <div class="form-group">
+        <label for="category">Category: </label>
+        <!------- Case EDIT ---------->
 
-      <div *ngIf="this.id">
-        <select
-          *ngFor="let movieCategory of movie.category; let i = index"
-          class="form-control py-1"
-          [(ngModel)]="movie.category[i].name"
-          [ngClass]="{ 'is-invalid': submitted && f['category'].errors }"
-          id="category"
-          formControlName="category"
-          (change)="getCategoryID(movie.category[i].name, i)"
-        >
-          <option
-            *ngFor="let category of categories"
-            [selected]="movieCategory.id == category.id"
+        <div *ngIf="this.id">
+          <select
+            *ngFor="let movieCategory of movie.category; let i = index"
+            class="form-control py-1"
+            [(ngModel)]="movie.category[i].name"
+            [ngClass]="{ 'is-invalid': submitted && f['category'].errors }"
+            id="category"
+            formControlName="category"
+            (change)="getCategoryID(movie.category[i].name, i)"
           >
-            {{ category.name }}
-          </option>
-        </select>
+            <option
+              *ngFor="let category of categories"
+              [selected]="movieCategory.id === category.id"
+            >
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+
+        <!------- Case CREATE ---------->
+
+        <div *ngIf="!this.id">
+          <select
+            class="form-control py-1"
+            [(ngModel)]="movie.category[0].name"
+            [ngClass]="{ 'is-invalid': submitted && f['category'].errors }"
+            id="category"
+            formControlName="category"
+            (change)="getCategoryID(movie.category[0].name)"
+          >
+            <option [value]="null">-- Select Category</option>
+            <option *ngFor="let category of categories">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
       </div>
-
-      <!------- Case CREATE ---------->
-
-      <div *ngIf="!this.id">
-        <select
-          class="form-control py-1"
-          [(ngModel)]="movie.category[0].name"
-          [ngClass]="{ 'is-invalid': submitted && f['category'].errors }"
-          id="category"
-          formControlName="category"
-          (change)="getCategoryID(movie.category[0].name)"
+      <div
+        class="alert alert-danger p-2"
+        *ngIf="f['category'].errors && submitted"
+      >
+        <div
+          class="py-0"
+          *ngIf="f['category'].errors?.['required'] && submitted"
         >
-          <option *ngFor="let category of categories" [selected]="category.id">
-            {{ category.name }}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div
-      class="alert alert-danger p-2"
-      *ngIf="f['category'].errors && submitted"
-    >
-      <div class="py-0" *ngIf="f['category'].errors?.['required'] && submitted">
-        Category is required.
+          Category is required.
+        </div>
       </div>
     </div>
     <!-- ------------------------ -->
 
     <!------------- Plot -------------->
 
-    <div class="form-group">
-      <label for="plot">Plot</label>
-      <textarea
-        class="form-control"
-        [(ngModel)]="movie.plot"
-        [ngClass]="{ 'is-invalid': submitted && f['plot'].errors }"
-        id="plot"
-        formControlName="plot"
-        rows="4"
-      ></textarea>
-    </div>
-    <div class="alert alert-danger p-2" *ngIf="f['plot'].errors && submitted">
-      <div class="py-0" *ngIf="f['plot'].errors?.['required'] && submitted">
-        Plot is required.
+    <div class="my-3">
+      <div class="form-group">
+        <label for="plot">Plot</label>
+        <textarea
+          class="form-control"
+          [(ngModel)]="movie.plot"
+          [ngClass]="{ 'is-invalid': submitted && f['plot'].errors }"
+          id="plot"
+          formControlName="plot"
+          rows="4"
+        ></textarea>
+      </div>
+      <div class="alert alert-danger p-2" *ngIf="f['plot'].errors && submitted">
+        <div class="py-0" *ngIf="f['plot'].errors?.['required'] && submitted">
+          Plot is required.
+        </div>
       </div>
     </div>
 
-    <!------------- Poster -------------->
+    <!------------- Poster Upload-------------->
 
-    <div class="form-group">
-      <label for="poster">Poster: </label>
-      <input
-        type="file"
-        class="form-control"
-        [(ngModel)]="movie.path_locandina"
-        observeFiles
-        id="poster"
-        formControlName="poster"
-        accept="image/png, image/jpeg"
-        value=""
-        (change)="showPreviewImage($event); uploadFile($event)"
+    <!-- Image upload Form TESTING -->
+
+    <div class="container">
+      <h1>TechGeekNext Upload Image Example</h1>
+      <br />
+
+      <div class="form-group">
+        <input type="file" (change)="onImageUpload($event)" />
+        <input
+          type="button"
+          (click)="imageUploadAction()"
+          value="Upload Image"
+          class="btn1"
+        />
+      </div>
+
+      <div>
+        <output *ngIf="successResponse" class="success"
+          ><b>{{ successResponse }}</b></output
+        >
+      </div>
+    </div>
+    <!-- ------------------------------------------------ -->
+
+    <div class="my-3">
+      <p>Poster Image:</p>
+
+      <img
+        *ngIf="movie.images[0]?.image; else elseBlock"
+        src="http://localhost:4200/api/get/image/{{ movie.images[0]?.name }}"
+        style="width: 10rem"
+        alt="poster_image_{{ movie.title }}"
       />
+
+      <ng-template #elseBlock
+        ><div class="p-5 border" style="width: 10rem">
+          No image uploaded yet
+        </div></ng-template
+      >
     </div>
 
-    <p>Poster Image:</p>
-    <img
-      *ngIf="movie.path_locandina; else elseBlock"
-      style="width: 10rem"
-      src="../../../assets/movie-posters/{{ movie.path_locandina }}"
-      alt="poster_image"
-    />
-    <ng-template #elseBlock
-      ><div class="p-5 border" style="width: 10rem">
-        No image uploaded yet
-      </div></ng-template
-    >
+    <!-- <div class="my-3">
+      <div class="form-group">
+        <label for="poster">Poster Upload: </label>
+        <input
+          type="file"
+          class="form-control"
+          [(ngModel)]="movie.path_locandina"
+          observeFiles
+          id="poster"
+          formControlName="poster"
+          accept="image/png, image/jpeg"
+          value=""
+          (change)="showPreviewImage($event); onImageUpload($event)"
+        />
+      </div>
+    </div> -->
+
+    <!-- <div class="my-3">
+      <p>Poster Image:</p>
+    orm <img
+        *ngIf="movie.image; else elseBlock"
+        style="width: 10rem"
+        alt="poster_image"
+      />
+      <ng-template #elseBlock
+        ><div class="p-5 border" style="width: 10rem">
+          No image uploaded yet
+        </div></ng-template
+      >
+    </div> -->
 
     <!------------- Sumbmit Button -------------->
 

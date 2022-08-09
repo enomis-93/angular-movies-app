@@ -4,7 +4,7 @@
       <div class="movie_header">
         <img
           class="locandina"
-          src="../../../../assets/movie-posters/{{ movie.path_locandina }}"
+          src="http://localhost:4200/api/get/image/{{ movie.images[0].name }}"
         />
         <h1>{{ movie.title }}</h1>
         <h4>{{ movie.year }}, {{ movie.director }}</h4>
@@ -23,9 +23,12 @@
     </div>
     <div
       class="blur_back"
-      [style.backgroundImage]="
-        'url(../../../../assets/movie-posters/' + movie.path_locandina + ')'
-      "
+      [ngStyle]="{
+        'background-image':
+          'url(http://localhost:4200/api/get/image/' +
+          movie.images[0].name +
+          ')'
+      }"
     ></div>
   </div>
 </div>

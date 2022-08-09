@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Movie } from 'src/app/classes/movie';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { ImageUploadService } from '../../services/image-upload.service';
 import {
   AbstractControl,
   FormBuilder,
@@ -23,6 +25,7 @@ export class AdminFormComponent implements OnInit {
   movie = new Movie();
   categoryID!: number;
 
+  // Form validation
   form: FormGroup = new FormGroup({
     title: new FormControl(''),
     director: new FormControl(''),
@@ -34,14 +37,21 @@ export class AdminFormComponent implements OnInit {
   });
   submitted = false;
 
-  file1!: any;
-  file2!: any;
+  // Image upload
+  uploadedImage!: any;
+  dbImage: any;
+  postResponse: any;
+  successResponse!: string;
+  image: any;
+  getImageName: any;
 
   constructor(
     private moviesService: MoviesService,
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private ImageUploadService: ImageUploadService
   ) {
     // this.createForm();
   }
@@ -79,11 +89,12 @@ export class AdminFormComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.form.invalid) {
-      return;
-    }
-    console.log(JSON.stringify(this.form.value, null, 2));
+    // console.log(this.form.invalid);
+    // if (this.form.invalid) {
+    //   return;
+    // }
     // else send the data submitted
+    console.log(JSON.stringify(this.form.value, null, 2));
     this.sendMovieData();
   }
 
@@ -101,7 +112,7 @@ export class AdminFormComponent implements OnInit {
       });
       return;
     }
-
+    // Create case
     this.moviesService.addMovie(this.movie).subscribe((data) => {
       console.log(data);
       this.router.navigateByUrl('movies_list');
@@ -152,11 +163,49 @@ export class AdminFormComponent implements OnInit {
     }
   }
 
-  uploadFile(event: any) {
-    this.file1 = event.target.value;
-    this.file2 = event.target.files[0];
-    this.movie.path_locandina = this.file2.name;
-    console.log(this.file1); // in this case we only get fakepath same as we get in ngModel.
-    console.table(this.file2.name); // in this case we get object with data like, name, lastModified, lastModifiedDate, size and type.
+  // IMAGE UPLOAD METHODS
+  public onImageUpload(event: any) {
+    this.uploadedImage = event.target.files[0];
+  }
+
+  imageUploadAction() {
+    const imageFormData = new FormData();
+    imageFormData.append('image', this.uploadedImage, this.uploadedImage.name);
+    this.http
+      .post('http://localhost:4200/api/upload/image/', imageFormData, {
+        observe: 'response',
+      })
+      .subscribe((res) => {
+        console.log('Upload');
+        console.log(res);
+        if (res.status === 200) {
+          this.postResponse = res;
+          this.successResponse = this.postResponse.body.message;
+        } else {
+          this.successResponse = 'Image not uploaded due to some error!';
+        }
+      });
+    this.getUploadedImage();
+  }
+
+  getUploadedImage() {
+    this.http
+      .get(
+        'http://localhost:4200/api/get/image/info/' + this.uploadedImage.name
+      )
+      .subscribe((res: any) => {
+        console.log('getUploadedImage');
+        console.log(res);
+        this.setUploadedImage(res);
+      });
+  }
+
+  setUploadedImage(res: any) {
+    // this.postResponse = res;
+    console.log('Setto immagine nel movie');
+    this.movie.images[0].name = res.name;
+    this.movie.images[0].type = res.type;
+    this.movie.images[0].image = res.image;
+    // this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
   }
 }

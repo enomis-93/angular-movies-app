@@ -17,14 +17,19 @@ export class MovieDetailComponent implements OnInit {
     duration: 0,
     category: [{ name: '', id: 0 }],
     id: 0,
-    path_locandina: '',
+    images: [
+      {
+        image: '',
+        name: '',
+        type: '',
+      },
+    ],
     plot: '',
     year: 0,
   };
 
   styleObject: Object = {
-    background:
-      'url(../../../../assets/movie-posters/' + this.movie.path_locandina + ')',
+    background: `url(http://localhost:4200/api/get/image/${this.movie.images[0].name})`,
     'background-size': 'contain',
   };
 
