@@ -62,10 +62,13 @@
         <td>{{ movie.id }}</td>
         <td>
           <img
+            *ngFor="let moviePoster of movie.images; let i = index"
             style="width: 5rem"
-            src="http://localhost:4200/api/get/image/{{
-              movie.images[0]?.name
-            }}"
+            [src]="
+              movie.images
+                ? 'http://localhost:4200/api/get/image/' + movie.images[i].name
+                : 'assets/no-image.png'
+            "
             alt="movie_poster_{{ movie.id }}"
           />
         </td>

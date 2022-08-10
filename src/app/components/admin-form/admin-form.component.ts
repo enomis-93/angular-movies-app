@@ -21,7 +21,7 @@ export class AdminFormComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
   categories: any[] = [];
   localUrl: any[] = [];
-  id!: number;
+  movieID!: number;
   movie = new Movie();
   categoryID!: number;
 
@@ -105,11 +105,13 @@ export class AdminFormComponent implements OnInit {
 
   sendMovieData() {
     // Update Movie Case
-    if (this.id) {
-      this.moviesService.editMovie(this.movie, this.id).subscribe((data) => {
-        console.log(data);
-        this.router.navigateByUrl('movies_list');
-      });
+    if (this.movieID) {
+      this.moviesService
+        .editMovie(this.movie, this.movieID)
+        .subscribe((data) => {
+          console.log(data);
+          this.router.navigateByUrl('movies_list');
+        });
       return;
     }
     // Create case
@@ -130,10 +132,10 @@ export class AdminFormComponent implements OnInit {
   getMovieID() {
     this.activeRoute.paramMap.subscribe((params: ParamMap) => {
       this.activeRoute.params.subscribe((routeParams) => {
-        let id = routeParams['id'];
-        if (id) {
-          this.id = routeParams['id'];
-          this.setMovieDetails(id);
+        let movieId = routeParams['id'];
+        if (movieId) {
+          this.movieID = routeParams['id'];
+          this.setMovieDetails(movieId);
         }
         return;
       });
@@ -181,14 +183,16 @@ export class AdminFormComponent implements OnInit {
         if (res.status === 200) {
           this.postResponse = res;
           this.successResponse = this.postResponse.body.message;
+          this.getUploadedImage();
         } else {
           this.successResponse = 'Image not uploaded due to some error!';
         }
       });
-    this.getUploadedImage();
   }
 
   getUploadedImage() {
+    console.log('getUploadimage invoked');
+    console.log(this.uploadedImage);
     this.http
       .get(
         'http://localhost:4200/api/get/image/info/' + this.uploadedImage.name
@@ -203,9 +207,27 @@ export class AdminFormComponent implements OnInit {
   setUploadedImage(res: any) {
     // this.postResponse = res;
     console.log('Setto immagine nel movie');
-    this.movie.images[0].name = res.name;
-    this.movie.images[0].type = res.type;
-    this.movie.images[0].image = res.image;
+    // if (this.movieID) {
+    //   let image = {
+    //     id_film: this.movie.id,
+    //     image: res.image,
+    //     type: res.type,
+    //     name: res.name,
+    //   };
+    //   this.movie.images.push(image);
+    //   return;
+    // }
+
+    let image = {
+      image: res.image,
+      type: res.type,
+      name: res.name,
+    };
+    this.movie.images.push(image);
+    console.log(this.movie);
+    // this.movie.images[0].name = res.name;
+    // this.movie.images[0].type = res.type;
+    // this.movie.images[0].image = res.image;
     // this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
   }
 }

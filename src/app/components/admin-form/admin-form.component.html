@@ -1,7 +1,7 @@
 <div class="container">
   <!-- <div>{{ categoryID }}</div> -->
   <h3 class="text-center text-white p-3">
-    {{ id ? 'Edit "' + this.movie.title + '"' : "Insert new movie" }}
+    {{ movieID ? 'Edit "' + this.movie.title + '"' : "Insert new movie" }}
   </h3>
   <form
     [formGroup]="form"
@@ -117,7 +117,7 @@
         <label for="category">Category: </label>
         <!------- Case EDIT ---------->
 
-        <div *ngIf="this.id">
+        <div *ngIf="this.movieID">
           <select
             *ngFor="let movieCategory of movie.category; let i = index"
             class="form-control py-1"
@@ -138,7 +138,7 @@
 
         <!------- Case CREATE ---------->
 
-        <div *ngIf="!this.id">
+        <div *ngIf="!this.movieID">
           <select
             class="form-control py-1"
             [(ngModel)]="movie.category[0].name"
@@ -194,8 +194,8 @@
     <!-- Image upload Form TESTING -->
 
     <div class="container">
-      <h1>TechGeekNext Upload Image Example</h1>
-      <br />
+      <!-- <h1>TechGeekNext Upload Image Example</h1>
+      <br /> -->
 
       <div class="form-group">
         <input type="file" (change)="onImageUpload($event)" />
@@ -218,13 +218,14 @@
     <div class="my-3">
       <p>Poster Image:</p>
 
-      <img
-        *ngIf="movie.images[0]?.image; else elseBlock"
-        src="http://localhost:4200/api/get/image/{{ movie.images[0]?.name }}"
-        style="width: 10rem"
-        alt="poster_image_{{ movie.title }}"
-      />
-
+      <div *ngIf="movie.images; else elseBlock">
+        <img
+          *ngFor="let moviePoster of movie.images; let i = index"
+          style="width: 10rem"
+          [src]="'http://localhost:4200/api/get/image/' + movie.images[i].name"
+          alt="movie_poster_{{ movie.id }}"
+        />
+      </div>
       <ng-template #elseBlock
         ><div class="p-5 border" style="width: 10rem">
           No image uploaded yet
@@ -267,7 +268,9 @@
 
     <div class="text-end">
       <button class="btn btn-secondary m-1" (click)="onReset()">RESET</button>
-      <button class="btn btn-primary m-1">{{ id ? "EDIT" : "CREATE" }}</button>
+      <button class="btn btn-primary m-1">
+        {{ movieID ? "EDIT" : "CREATE" }}
+      </button>
     </div>
   </form>
 </div>
