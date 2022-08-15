@@ -2,17 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Movie } from '../classes/movie';
 import { catchError, Observable, throwError } from 'rxjs';
+import { Category } from '../classes/category';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MoviesService {
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
-
   constructor(private http: HttpClient) {}
 
   getAllMovies(): Observable<any> {

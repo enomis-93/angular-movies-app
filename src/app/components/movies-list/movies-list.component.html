@@ -19,7 +19,7 @@
         class="card-img-top"
         [src]="
           movie.images
-            ? 'http://localhost:4200/api/get/image/' + movie.images[0]?.name
+            ? 'http://localhost:4200/api/get/image/' + movie.images[0].name
             : 'assets/no-image.png'
         "
         alt="Card image cap"

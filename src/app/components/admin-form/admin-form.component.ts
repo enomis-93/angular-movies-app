@@ -6,11 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { ImageUploadService } from '../../services/image-upload.service';
 import {
   AbstractControl,
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { json } from 'express';
 
 @Component({
   selector: 'app-admin-form',
@@ -36,6 +38,7 @@ export class AdminFormComponent implements OnInit {
     poster: new FormControl(''),
   });
   submitted = false;
+  addForm!: FormGroup;
 
   // Image upload
   uploadedImage!: any;
@@ -50,8 +53,7 @@ export class AdminFormComponent implements OnInit {
     private router: Router,
     private activeRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private ImageUploadService: ImageUploadService
+    private http: HttpClient
   ) {
     // this.createForm();
   }
@@ -77,9 +79,24 @@ export class AdminFormComponent implements OnInit {
       ],
       category: ['', Validators.required],
       plot: ['', Validators.required],
-      poster: ['', Validators.required],
     });
   }
+
+  // ADD NEW CATEGORY FORM ARRAY METHOD
+  initLink() {
+    return this.formBuilder.group({
+      linkAddress: ['', Validators.required],
+    });
+  }
+  addLink() {
+    const control = <FormArray>this.addForm.controls['linktodrive'];
+    control.push(this.initLink());
+  }
+  removeLink(i: number) {
+    const control = <FormArray>this.addForm.controls['linktodrive'];
+    control.removeAt(i);
+  }
+  // ---------------------------------
 
   get f(): { [key: string]: AbstractControl } {
     return this.form.controls;
@@ -89,10 +106,10 @@ export class AdminFormComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    // console.log(this.form.invalid);
-    // if (this.form.invalid) {
-    //   return;
-    // }
+    console.log(this.form.invalid);
+    if (this.form.invalid) {
+      return;
+    }
     // else send the data submitted
     console.log(JSON.stringify(this.form.value, null, 2));
     this.sendMovieData();
@@ -109,14 +126,14 @@ export class AdminFormComponent implements OnInit {
       this.moviesService
         .editMovie(this.movie, this.movieID)
         .subscribe((data) => {
-          console.log(data);
+          console.log('Dati del film inviato:' + JSON.stringify(data));
           this.router.navigateByUrl('movies_list');
         });
       return;
     }
     // Create case
     this.moviesService.addMovie(this.movie).subscribe((data) => {
-      console.log(data);
+      console.log('data:' + data);
       this.router.navigateByUrl('movies_list');
     });
   }
@@ -207,27 +224,47 @@ export class AdminFormComponent implements OnInit {
   setUploadedImage(res: any) {
     // this.postResponse = res;
     console.log('Setto immagine nel movie');
-    // if (this.movieID) {
-    //   let image = {
-    //     id_film: this.movie.id,
-    //     image: res.image,
-    //     type: res.type,
-    //     name: res.name,
-    //   };
-    //   this.movie.images.push(image);
-    //   return;
-    // }
 
+    // Gestione caso edit ?
+    if (this.movieID) {
+      let image = {
+        id_film: this.movie.id,
+        id: res.id,
+        image: '',
+        type: res.type,
+        name: res.name,
+      };
+
+      this.movie.images.push(image);
+      console.log('Oggetto film:' + this.movie);
+      return;
+    }
+
+    // Caso Create
     let image = {
-      image: res.image,
+      id: res.id,
+      image: '',
       type: res.type,
       name: res.name,
     };
+
     this.movie.images.push(image);
-    console.log(this.movie);
+    console.log('Oggetto film:' + this.movie);
     // this.movie.images[0].name = res.name;
     // this.movie.images[0].type = res.type;
     // this.movie.images[0].image = res.image;
     // this.dbImage = 'data:image/jpeg;base64,' + this.postResponse.image;
+  }
+
+  deleteImage(index: number) {
+    this.movie.images.splice(index, 1);
+  }
+
+  addNewCategory() {
+    this.movie.category.push({ name: '', id: 0 });
+  }
+
+  trackByIndex(id: number) {
+    return id;
   }
 }

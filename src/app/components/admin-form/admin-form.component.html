@@ -140,18 +140,31 @@
 
         <div *ngIf="!this.movieID">
           <select
+            *ngFor="
+              let movieCategory of movie.category;
+              let i = index;
+              trackBy: trackByIndex
+            "
             class="form-control py-1"
-            [(ngModel)]="movie.category[0].name"
+            [(ngModel)]="movie.category[i].name"
             [ngClass]="{ 'is-invalid': submitted && f['category'].errors }"
             id="category"
             formControlName="category"
-            (change)="getCategoryID(movie.category[0].name)"
+            (change)="getCategoryID(movie.category[i].name, i)"
           >
             <option [value]="null">-- Select Category</option>
             <option *ngFor="let category of categories">
               {{ category.name }}
             </option>
+            <span class="btn btn-secondary p-2">X</span>
           </select>
+          <button
+            type="button"
+            class="btn btn-success my-1"
+            (click)="addNewCategory()"
+          >
+            + Add New Category
+          </button>
         </div>
       </div>
       <div
@@ -166,6 +179,7 @@
         </div>
       </div>
     </div>
+
     <!-- ------------------------ -->
 
     <!------------- Plot -------------->
@@ -193,24 +207,30 @@
 
     <!-- Image upload Form TESTING -->
 
-    <div class="container">
+    <div class="my-3">
       <!-- <h1>TechGeekNext Upload Image Example</h1>
       <br /> -->
 
-      <div class="form-group">
-        <input type="file" (change)="onImageUpload($event)" />
-        <input
-          type="button"
-          (click)="imageUploadAction()"
-          value="Upload Image"
-          class="btn1"
-        />
-      </div>
+      <div *ngIf="this.movie.images.length < 3">
+        <div class="form-group">
+          <input
+            class="form-control"
+            type="file"
+            (change)="onImageUpload($event)"
+          />
+          <input
+            type="button"
+            (click)="imageUploadAction()"
+            value="Upload Image"
+            class="btn btn-success my-1"
+          />
+        </div>
 
-      <div>
-        <output *ngIf="successResponse" class="success"
-          ><b>{{ successResponse }}</b></output
-        >
+        <div>
+          <output *ngIf="successResponse" class="success"
+            ><b>{{ successResponse }}</b></output
+          >
+        </div>
       </div>
     </div>
     <!-- ------------------------------------------------ -->
@@ -218,14 +238,30 @@
     <div class="my-3">
       <p>Poster Image:</p>
 
-      <div *ngIf="movie.images; else elseBlock">
-        <img
+      <div *ngIf="movie.images.length > 0; else elseBlock">
+        <div
           *ngFor="let moviePoster of movie.images; let i = index"
-          style="width: 10rem"
-          [src]="'http://localhost:4200/api/get/image/' + movie.images[i].name"
-          alt="movie_poster_{{ movie.id }}"
-        />
+          class="d-flex flex-column img-container"
+        >
+          <div class="img-container">
+            <img
+              style="width: 10rem"
+              [src]="
+                'http://localhost:4200/api/get/image/' + movie.images[i].name
+              "
+              alt="movie_poster_{{ movie.id }}"
+            />
+            <div
+              type="button"
+              class="btn btn-secondary"
+              (click)="deleteImage(i)"
+            >
+              Delete
+            </div>
+          </div>
+        </div>
       </div>
+
       <ng-template #elseBlock
         ><div class="p-5 border" style="width: 10rem">
           No image uploaded yet

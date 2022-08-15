@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Image } from 'src/app/classes/image';
 import { Movie } from 'src/app/classes/movie';
 import { MoviesService } from 'src/app/services/movies.service';
 
@@ -17,13 +18,7 @@ export class MovieDetailComponent implements OnInit {
     duration: 0,
     category: [{ name: '', id: 0 }],
     id: 0,
-    images: [
-      {
-        image: '',
-        name: '',
-        type: '',
-      },
-    ],
+    images: [],
     plot: '',
     year: 0,
   };
